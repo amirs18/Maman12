@@ -89,7 +89,10 @@ public class RectangleA {
     public int getArea(){
         return int_height*int_width;
     }
-    public void move(int DeltaX,int DeltaY){
-
+    public void move(int deltaX,int deltaY){
+        this.int_width=+deltaX;
+        this.int_height=+deltaY;
+        this.point_SW.setX(this.point_SW.getX()+deltaX);
+        this.point_SW.setY(this.point_SW.getY()+deltaY);
     }
 }
