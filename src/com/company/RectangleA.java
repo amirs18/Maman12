@@ -89,4 +89,7 @@ public class RectangleA {
     public int getArea(){
         return int_height*int_width;
     }
+    public void moove(int DeltaX,int DeltaY){
+
+    }
 }
