@@ -1,7 +1,7 @@
 package com.company;
 
 public class Point {
-    int int_x, int_y;
+    private int int_x, int_y;
     public Point(int int_x, int int_y){
         this.int_x=int_x;
         this.int_y=int_y;
