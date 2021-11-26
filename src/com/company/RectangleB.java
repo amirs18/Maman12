@@ -13,100 +13,111 @@ public class RectangleB {
             this.point_SW = new Point(0, 0);
 
             //
-            if (w > 0)
-                point_NE.setX(w);
+            if (w>0||h>0){
+                if (w > 0)
+                    point_NE = new Point(w, 1);
+                if (h > 0)
+                    point_NE = new Point(1, h);
+                if (w>0&&h>0)
+                    point_NE = new Point(w, h);
+            }
             else
-                point_NE.setX(1);
-            if (h > 0)
-                point_NE.setY(h);
-            else
-                point_NE.setY(1);
+                point_NE=new Point(1,1);
+
         }
 
     //
     public RectangleB (Point sw,int w,int h){
 
         //
-        this.point_SW=sw;
+        this.point_SW=new Point(sw);
 
-        //
-        if(w>0)
-            point_NE.setX(w);
+        if (w>0||h>0){
+            if (w > 0)
+                point_NE = new Point(point_SW.getX()+w, 1);
+            if (h > 0)
+                point_NE = new Point(1,point_SW.getY()+ h);
+            if (w>0&&h>0)
+                point_NE = new Point(point_SW.getX()+w,point_SW.getY()+ h);
+        }
         else
-            point_NE.setX(1);
-        if (h>0)
-            point_NE.setY(h);
-        else
-            point_NE.setY(1);
+            point_NE=new Point(point_SW.getX()+1,point_SW.getY()+1);
     }
     public RectangleB (Point sw,Point ne){
 
         //
-        this.point_SW=sw;
+        this.point_SW=new Point(sw);
 
         //
-        this.point_NE=ne;
+        this.point_NE=new Point(ne);
     }
 
     public RectangleB(RectangleB r) {
         //
-        this.point_SW=r.point_SW;
+        this.point_SW=new Point(r.point_SW);
 
         //
-        this.point_NE=r.point_NE;
+        this.point_NE=new Point(r.point_NE);
     }
     //
-    public int getInt_width() {
+    public int getWidth() {
         return point_NE.getX()-point_SW.getX();
     }
     //
-    public int getInt_height() {
-        return point_SW.getY()-point_NE.getY();
+    public void setWidth(int w) {
+        this.point_NE=new Point( this.point_SW.getX()+w,this.point_NE.getY());
+    }
+    public int getHeight() {
+        return point_NE.getY()-point_SW.getY();
     }
     //
-    public Point getPoint_SW() {
+    public void setHeight(int h) {
+           this.point_NE=new Point( this.point_NE.getX(),this.point_SW.getY()+h);
+    }
+    //
+    public Point getPointSW() {
         return point_SW;
     }
     //
-    public void setPoint_SW(Point SW) {
-        this.point_NE.setY(SW.getY()+this.getInt_height());
-        this.point_NE.setX(SW.getX()+this.getInt_width());
-        this.point_SW = SW;
+    public void setPointSW(Point SW) {
+        this.point_NE.setY(SW.getY()+this.getHeight());
+        this.point_NE.setX(SW.getX()+this.getWidth());
+        this.point_SW = new Point(SW);
     }
     //
-    public Point getPoint_NE() {
+    public Point getPointNE() {
         return point_NE;
     }
 
     //
     @Override
     public String toString() {
-        return "width=" + this.getInt_width() + " height=" + this.getInt_height() + " pointSW=" + point_SW;
+        return "Width=" + this.getWidth() + " Height=" + this.getHeight() + " PointSW=" + point_SW;
     }
 
     //
     public int getPerimeter(){
         //
-        return (this.getInt_height()+this.getInt_width())*2;
+        return (this.getHeight()+this.getWidth())*2;
     }
     //
     public int getArea(){
-        return (this.getInt_height()*this.getInt_width()) ;
+        return (this.getHeight()*this.getWidth()) ;
     }
     //
     public void move(int deltaX,int deltaY){
 
-        this.setPoint_SW(new Point(this.point_SW.getX()+deltaX,this.point_SW.getY()+deltaY));
+        this.setPointSW(new Point(this.point_SW.getX()+deltaX,this.point_SW.getY()+deltaY));
     }
     //
     public boolean equals (RectangleB other){
         //
-        return (this.getInt_height()==other.getInt_height())&&(this.getInt_width()==other.getInt_width())&&(this.point_SW.equals(other.point_SW));
+        return (this.getHeight()==other.getHeight())&&(this.getWidth()==other.getWidth())&&(this.point_SW.equals(other.point_SW));
     }
     //
     public double getDiagonalLength (){
         //
-        return Math.sqrt(Math.pow(this.getInt_height(),2)+Math.pow(this.getInt_width(),2));
+        return Math.sqrt(Math.pow(this.getHeight(),2)+Math.pow(this.getWidth(),2));
     }
     //
     public boolean isLarger(RectangleB other){
@@ -114,14 +125,10 @@ public class RectangleB {
         return this.getArea()>other.getArea();
     }
     //
-    public Point getPointNE(){
-        //
-        return new Point(this.point_SW.getX()+ this.getInt_width(), this.point_SW.getY()+ this.getInt_height());
-    }
     //
     public void changeSides(){
-        this.point_NE.setY(this.point_SW.getY()+this.getInt_width());
-        this.point_NE.setX(this.point_SW.getX()+this.getInt_height());
+        this.point_NE.setY(this.point_SW.getY()+this.getWidth());
+        this.point_NE.setX(this.point_SW.getX()+this.getHeight());
     }
     //
     public boolean isIn (RectangleB r){
@@ -131,10 +138,15 @@ public class RectangleB {
     }
     //
     public boolean overlap(RectangleB r){
-        if (this.point_SW.isRight(r.getPointNE())||this.getPointNE().isLeft(r.point_SW)) {
-            return this.getPointNE().isUnder(r.point_SW) || this.point_SW.isAbove(r.getPointNE());
-        }
-        return false;
+        if (r.getPointNE().isLeft(this.getPointSW()))
+            return false;
+        if (r.getPointSW().isRight(this.getPointNE()))
+            return false;
+        if (r.getPointSW().isAbove(this.getPointNE()))
+            return false;
+        return !r.getPointNE().isUnder(this.getPointSW());
     }
+
+
 }
 

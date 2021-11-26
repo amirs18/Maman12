@@ -32,12 +32,12 @@ public class RectangleA {
         else
             this.int_height = 1;
         //
-        this.point_SW = point;
+        this.point_SW = new Point(point);
     }
     //
     public RectangleA (Point sw,Point ne){
         //
-        this.point_SW=sw;
+        this.point_SW=new Point(sw);
         //
         this.int_height=ne.getY()- sw.getY();
         //
@@ -45,7 +45,7 @@ public class RectangleA {
     }
     public RectangleA(RectangleA r){
         //
-        this.point_SW= r.point_SW;
+        this.point_SW=new Point(r.point_SW);
         //
         this.int_height= r.int_height;
         //
@@ -53,33 +53,33 @@ public class RectangleA {
 
     }
 
-    public int getInt_width() {
+    public int getWidth() {
         return this.int_width;
     }
 
-    public int getInt_height() {
+    public int getHeight() {
         return this.int_height;
     }
 
-    public Point getPoint_SW() {
+    public Point getPointSW() {
         return this.point_SW;
     }
 
-    public void setInt_width(int int_width) {
-        this.int_width = int_width;
+    public void setWidth(int width) {
+        this.int_width = width;
     }
 
-    public void setInt_height(int int_height) {
+    public void setHeight(int height) {
 
-        this.int_height = int_height;
+        this.int_height = height;
     }
-    public void setPoint_SW(Point point_SW) {
-        this.point_SW = point_SW;
+    public void setPointSW(Point point_SW) {
+        this.point_SW = new Point(point_SW);
     }
 //
     @Override
     public String toString() {
-        return "width=" + int_width + " height=" + int_height + " pointSW=" + point_SW;
+        return "Width=" + int_width + " Height=" + int_height + " PointSW=" + point_SW;
     }
     //
     public int getPerimeter(){
@@ -131,14 +131,16 @@ public class RectangleA {
     //
     public boolean isIn (RectangleA r){
         //
-        return r.point_SW.isRight(this.point_SW)&&r.point_SW.isAbove(this.point_SW)
-                &&r.getPointNE().isLeft(this.getPointNE())&&r.getPointNE().isUnder(this.getPointNE());
+        return r.getPointSW().getX() <= this.getPointSW().getX() && r.getPointSW().getY() <= this.getPointSW().getY() && r.getPointNE().getX() >= this.getPointNE().getX() && r.getPointNE().getY() >= this.getPointNE().getY();
     }
     //
     public boolean overlap(RectangleA r){
-        if (this.point_SW.isRight(r.getPointNE())||this.getPointNE().isLeft(r.point_SW)) {
-            return this.getPointNE().isUnder(r.point_SW) || this.point_SW.isAbove(r.getPointNE());
-        }
-        return false;
+        if (r.getPointNE().isLeft(this.getPointSW()))
+            return false;
+        if (r.getPointSW().isRight(this.getPointNE()))
+            return false;
+        if (r.getPointSW().isAbove(this.getPointNE()))
+            return false;
+        return !r.getPointNE().isUnder(this.getPointSW());
     }
 }

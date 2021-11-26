@@ -34,17 +34,17 @@ public class Point {
         return (this.int_y>other.int_y);
     }
     public boolean isUnder (Point other){
-        return this.isAbove(this);
+        return other.isAbove(this);
     }
     public boolean isLeft (Point other){
         return (this.int_x<other.int_x);
     }
     public boolean isRight (Point other){
-        return this.isLeft(this);
+        return other.isLeft(this);
     }
     public void move (int deltaX,int deltaY){
-        this.int_x =+ deltaX;
-        this.int_y =+ deltaY;
+        this.setX(this.getX()+deltaX);
+        this.setY(this.getY()+deltaY);
     }
     public double distance (Point point){
         return Math.sqrt(Math.pow(this.int_x-point.int_x,2)+Math.pow(this.int_y- point.int_y,2));
