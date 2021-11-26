@@ -55,23 +55,25 @@ public class RectangleB {
         //
         this.point_NE=r.point_NE;
     }
+    //
     public int getInt_width() {
         return point_NE.getX()-point_SW.getX();
     }
-
+    //
     public int getInt_height() {
         return point_SW.getY()-point_NE.getY();
     }
-
+    //
     public Point getPoint_SW() {
         return point_SW;
     }
-
+    //
     public void setPoint_SW(Point SW) {
         this.point_NE.setY(SW.getY()+this.getInt_height());
         this.point_NE.setX(SW.getX()+this.getInt_width());
         this.point_SW = SW;
     }
+    //
     public Point getPoint_NE() {
         return point_NE;
     }
@@ -87,6 +89,7 @@ public class RectangleB {
         //
         return (this.getInt_height()+this.getInt_width())*2;
     }
+    //
     public int getArea(){
         return (this.getInt_height()*this.getInt_width()) ;
     }
