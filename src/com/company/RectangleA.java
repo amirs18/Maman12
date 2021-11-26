@@ -116,8 +116,7 @@ public class RectangleA {
     //
     public Point getPointNE(){
         //
-         Point p=new Point(this.point_SW.getX()+this.int_width,this.point_SW.getY()+this.int_height);
-        return p;
+        return new Point(this.point_SW.getX()+ this.int_width, this.point_SW.getY()+ this.int_height);
     }
     //
     public void changeSides(){
@@ -137,6 +136,9 @@ public class RectangleA {
     }
     //
     public boolean overlap(RectangleA r){
-    return false ;
+        if (this.point_SW.isRight(r.getPointNE())||this.getPointNE().isLeft(r.point_SW)) {
+            return this.getPointNE().isUnder(r.point_SW) || this.point_SW.isAbove(r.getPointNE());
+        }
+        return false;
     }
 }
