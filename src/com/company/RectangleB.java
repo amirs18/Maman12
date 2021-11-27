@@ -127,14 +127,16 @@ public class RectangleB {
     //
     //
     public void changeSides(){
-        this.point_NE.setY(this.point_SW.getY()+this.getWidth());
-        this.point_NE.setX(this.point_SW.getX()+this.getHeight());
-    }
+        Point temp = new Point(this.point_NE);
+        temp.setY(this.point_SW.getY()+this.getWidth());
+        temp.setX(this.point_SW.getX()+this.getHeight());
+        point_NE=temp;
+        }
     //
     public boolean isIn (RectangleB r){
         //
-        return r.point_SW.isRight(this.point_SW)&&r.point_SW.isAbove(this.point_SW)
-                &&r.getPointNE().isLeft(this.getPointNE())&&r.getPointNE().isUnder(this.getPointNE());
+        return r.getPointSW().getX() <= this.getPointSW().getX() && r.getPointSW().getY() <= this.getPointSW().getY() && r.getPointNE().getX() >= this.getPointNE().getX() && r.getPointNE().getY() >= this.getPointNE().getY();
+
     }
     //
     public boolean overlap(RectangleB r){
