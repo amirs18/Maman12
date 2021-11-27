@@ -237,7 +237,7 @@ public class RectangleATestNew
         //***********************************************************
         System.out.print("getDiagonalLength:.");
         answer3 = rec1.getDiagonalLength();
-        if (answer3==10.0)
+        if (answer3==5.0)
             System.out.println("OK");
         else
             System.out.println("Error - your Diagona lLength: " + rec1.getDiagonalLength() + " Expected: 5.0");
