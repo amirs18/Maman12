@@ -153,6 +153,7 @@ public class RectangleAStudentTester
 
         System.out.println("testing isIn:");
         if (!r9.isIn(r10))
+
             System.out.println("\t ERROR - r9.isIn(r10) expected true ; actual=" + r9.isIn(r10) + ";  r9=" + r9 + " r10=" + r10);
         else
             System.out.println("\t OK - r9.isIn(r10) expected true ; actual=" + r9.isIn(r10) + ";  r9=" + r9 + " r10=" + r10);
